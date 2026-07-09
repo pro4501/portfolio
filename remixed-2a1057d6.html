@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pratham — Case File // Cybersecurity &amp; Digital Forensics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0b0e14;
+    --ink-2: #11151d;
+    --ink-3: #171c26;
+    --paper: #ede9de;
+    --paper-dim: #ddd6c4;
+    --amber: #e8a33d;
+    --teal: #4fb8ae;
+    --stamp-red: #c1443c;
+    --text-light: #ede9de;
+    --text-muted: #8b93a3;
+    --line: rgba(237,233,222,0.12);
+    --mono: 'JetBrains Mono', monospace;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  body{
+    background: var(--ink);
+    color: var(--text-light);
+    font-family: var(--body);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  ::selection{ background: var(--amber); color: var(--ink); }
+
+  a{ color:inherit; text-decoration:none; }
+
+  .noise{
+    position:fixed; inset:0; z-index:1; pointer-events:none;
+    opacity:0.035; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Folder tab navigation ---------- */
+  header.nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:flex-end; gap:2px;
+    padding:0 4vw;
+    background:transparent;
+    pointer-events:none;
+  }
+  header.nav .tabs{
+    display:flex; gap:2px; pointer-events:all;
+    margin-top:0;
+  }
+  header.nav .tab{
+    font-family:var(--mono); font-size:0.68rem; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--text-muted);
+    background:var(--ink-2);
+    padding:10px 16px 9px;
+    border:1px solid var(--line);
+    border-bottom:none;
+    border-radius:6px 6px 0 0;
+    cursor:pointer;
+    transition: color 0.25s ease, background 0.25s ease, transform 0.2s ease;
+    transform:translateY(6px);
+  }
+  header.nav .tab:hover{ color:var(--text-light); transform:translateY(2px); }
+  header.nav .tab.active{
+    color:var(--amber); background:var(--ink-3);
+    transform:translateY(0);
+    border-color: rgba(232,163,61,0.35);
+  }
+  header.nav .brand{
+    pointer-events:all;
+    font-family:var(--mono); font-size:0.7rem; color:var(--text-muted);
+    padding:12px 4vw 0 0;
+    letter-spacing:0.05em;
+  }
+  header.nav-bar{
+    position:fixed; top:38px; left:0; right:0; height:1px;
+    background:var(--line); z-index:99;
+  }
+
+  @media (max-width: 780px){
+    header.nav{ flex-direction:column; align-items:flex-start; padding:0 5vw; }
+    header.nav .tabs{ overflow-x:auto; max-width:100vw; -webkit-overflow-scrolling:touch; }
+    header.nav .tab{ flex:0 0 auto; font-size:0.6rem; padding:8px 10px 7px; }
+    header.nav .brand{ display:none; }
+    header.nav-bar{ top:34px; }
+  }
+
+  section{ position:relative; z-index:2; padding:0 4vw; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding-top:8vh;
+    position:relative;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .scanline{
+    position:absolute; left:0; right:0; height:120px;
+    background:linear-gradient(to bottom, transparent, rgba(232,163,61,0.06), transparent);
+    animation: scan 7s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes scan{
+    0%{ top:-120px; } 100%{ top:100%; }
+  }
+  .case-meta{
+    font-family:var(--mono); font-size:0.72rem; color:var(--text-muted);
+    display:flex; flex-wrap:wrap; gap:24px; margin-bottom:28px;
+    letter-spacing:0.03em;
+    opacity:0; animation: fadeUp 0.8s ease 0.15s forwards;
+  }
+  .case-meta span b{ color:var(--teal); font-weight:500; }
+  .hero h1{
+    font-family:var(--display); font-weight:700;
+    font-size:clamp(2.6rem, 8vw, 6.4rem);
+    line-height:0.98; letter-spacing:-0.01em;
+    color:var(--text-light);
+    opacity:0; animation: fadeUp 0.9s ease 0.3s forwards;
+  }
+  .hero h1 .accent{ color:var(--amber); }
+  .hero .role{
+    font-family:var(--mono); font-size:clamp(0.85rem, 1.6vw, 1.05rem);
+    color:var(--teal); margin-top:22px; letter-spacing:0.02em;
+    opacity:0; animation: fadeUp 0.9s ease 0.5s forwards;
+  }
+  .hero .role .sep{ color:var(--text-muted); margin:0 10px; }
+  .hero .dek{
+    max-width:620px; margin-top:26px; color:var(--text-muted);
+    font-size:1.02rem;
+    opacity:0; animation: fadeUp 0.9s ease 0.65s forwards;
+  }
+  .hero .dek strong{ color:var(--text-light); font-weight:500; }
+
+  .stamp{
+    position:absolute; top:16vh; right:6vw;
+    font-family:var(--mono); font-weight:700; font-size:0.95rem;
+    color:var(--stamp-red); border:3px solid var(--stamp-red);
+    padding:10px 18px; border-radius:4px;
+    transform:rotate(9deg) scale(0);
+    letter-spacing:0.12em;
+    animation: stampIn 0.4s cubic-bezier(.2,1.4,.4,1) 1.1s forwards;
+    opacity:0.88;
+  }
+  @keyframes stampIn{
+    0%{ transform:rotate(9deg) scale(2.4); opacity:0; }
+    60%{ opacity:0.9; }
+    100%{ transform:rotate(9deg) scale(1); opacity:0.85; }
+  }
+  @media (max-width:780px){ .stamp{ position:static; margin-top:24px; display:inline-block; transform:rotate(-3deg) scale(1); animation:none; } }
+
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(18px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .scroll-cue{
+    position:absolute; bottom:36px; left:4vw;
+    font-family:var(--mono); font-size:0.65rem; color:var(--text-muted);
+    display:flex; align-items:center; gap:10px;
+    letter-spacing:0.1em;
+  }
+  .scroll-cue .line{
+    width:32px; height:1px; background:var(--text-muted);
+    position:relative; overflow:hidden;
+  }
+  .scroll-cue .line::after{
+    content:''; position:absolute; left:-100%; top:0; height:100%; width:100%;
+    background:var(--amber);
+    animation: cueMove 2s ease-in-out infinite;
+  }
+  @keyframes cueMove{ 0%{left:-100%;} 50%{left:0;} 100%{left:100%;} }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .exhibit-label{
+    font-family:var(--mono); font-size:0.72rem; color:var(--amber);
+    letter-spacing:0.15em; text-transform:uppercase;
+    display:flex; align-items:center; gap:12px; margin-bottom:14px;
+  }
+  .exhibit-label::before{ content:''; width:22px; height:1px; background:var(--amber); }
+  .section-title{
+    font-family:var(--display); font-weight:600;
+    font-size:clamp(1.8rem, 4vw, 2.7rem);
+    margin-bottom:48px; color:var(--text-light);
+  }
+  .section-inner{ max-width:1180px; margin:0 auto; padding:120px 0; }
+  .section-inner.tight{ padding:100px 0; }
+
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- PROFILE ---------- */
+  #profile{ border-bottom:1px solid var(--line); }
+  .profile-grid{
+    display:grid; grid-template-columns: 1.3fr 1fr; gap:64px;
+  }
+  .profile-grid p{ color:var(--text-muted); font-size:1.05rem; margin-bottom:18px; max-width:60ch; }
+  .profile-grid p strong{ color:var(--text-light); font-weight:500; }
+  .profile-facts{
+    border-left:1px solid var(--line); padding-left:36px;
+  }
+  .fact{ margin-bottom:26px; }
+  .fact .k{ font-family:var(--mono); font-size:0.68rem; color:var(--text-muted); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:6px; }
+  .fact .v{ font-size:1rem; color:var(--text-light); }
+  @media (max-width:900px){ .profile-grid{ grid-template-columns:1fr; } .profile-facts{ border-left:none; border-top:1px solid var(--line); padding-left:0; padding-top:30px; } }
+
+  /* ---------- EXPERIENCE TIMELINE ---------- */
+  #experience{ border-bottom:1px solid var(--line); background:var(--ink-2); }
+  .timeline{ position:relative; padding-left:36px; }
+  .timeline::before{
+    content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px;
+    background:linear-gradient(to bottom, var(--amber), var(--line));
+  }
+  .t-item{ position:relative; padding-bottom:56px; }
+  .t-item:last-child{ padding-bottom:0; }
+  .t-item::before{
+    content:''; position:absolute; left:-36px; top:6px; width:11px; height:11px;
+    border-radius:50%; background:var(--ink-2); border:2px solid var(--amber);
+  }
+  .t-date{ font-family:var(--mono); font-size:0.72rem; color:var(--amber); letter-spacing:0.08em; margin-bottom:8px; }
+  .t-role{ font-family:var(--display); font-size:1.4rem; font-weight:600; color:var(--text-light); margin-bottom:4px; }
+  .t-org{ font-family:var(--mono); font-size:0.85rem; color:var(--teal); margin-bottom:14px; }
+  .t-desc{ color:var(--text-muted); max-width:64ch; margin-bottom:14px; }
+  .t-tags{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-family:var(--mono); font-size:0.68rem; color:var(--text-muted);
+    border:1px solid var(--line); padding:4px 10px; border-radius:20px;
+    transition:border-color 0.2s ease, color 0.2s ease;
+  }
+  .tag:hover{ border-color:var(--teal); color:var(--teal); }
+  .metric-highlight{
+    display:inline-block; font-family:var(--mono); color:var(--ink); background:var(--amber);
+    padding:2px 8px; border-radius:3px; font-weight:600; font-size:0.9em;
+  }
+
+  /* ---------- EXHIBITS / PROJECTS ---------- */
+  #projects{ border-bottom:1px solid var(--line); }
+  .exhibit-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
+  @media (max-width:900px){ .exhibit-grid{ grid-template-columns:1fr; } }
+
+  .exhibit-card{
+    background:var(--ink-2); border:1px solid var(--line); border-radius:10px;
+    padding:32px; position:relative; overflow:hidden;
+    transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  }
+  .exhibit-card::after{
+    content:''; position:absolute; top:0; right:0; width:0; height:0;
+    border-style:solid; border-width:0 26px 26px 0; border-color: transparent var(--ink) transparent transparent;
+    transition: border-color 0.35s ease;
+  }
+  .exhibit-card:hover{
+    transform:translateY(-6px);
+    border-color: rgba(79,184,174,0.4);
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.6);
+  }
+  .exhibit-id{
+    font-family:var(--mono); font-size:0.68rem; color:var(--text-muted); letter-spacing:0.08em;
+    display:flex; justify-content:space-between; margin-bottom:18px;
+  }
+  .exhibit-id .status{ color:var(--teal); }
+  .exhibit-card h3{
+    font-family:var(--display); font-size:1.35rem; font-weight:600; color:var(--text-light);
+    margin-bottom:12px; line-height:1.25;
+  }
+  .exhibit-card p{ color:var(--text-muted); font-size:0.95rem; margin-bottom:18px; }
+  .exhibit-card .t-tags{ margin-bottom:0; }
+  .exhibit-card.featured{ grid-column:1 / -1; }
+  .exhibit-card.featured .inner-grid{ display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start; }
+  @media (max-width:780px){ .exhibit-card.featured .inner-grid{ grid-template-columns:1fr; } }
+  .featured-badge{
+    font-family:var(--mono); font-size:0.62rem; color:var(--ink); background:var(--amber);
+    padding:3px 9px; border-radius:3px; letter-spacing:0.08em; font-weight:700;
+    position:absolute; top:22px; right:22px;
+  }
+  .agent-pipeline{
+    display:flex; flex-direction:column; gap:10px; font-family:var(--mono); font-size:0.78rem;
+  }
+  .agent-pipeline .step{
+    display:flex; align-items:center; gap:12px; color:var(--text-muted);
+    border-left:2px solid var(--line); padding-left:14px; padding-block:4px;
+    transition: border-color 0.3s ease, color 0.3s ease;
+  }
+  .agent-pipeline .step:hover{ border-color:var(--amber); color:var(--text-light); }
+  .agent-pipeline .num{ color:var(--amber); }
+
+  /* ---------- SKILLS / MANIFEST ---------- */
+  #skills{ border-bottom:1px solid var(--line); background:var(--ink-2); }
+  .manifest-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  @media (max-width:900px){ .manifest-grid{ grid-template-columns:1fr; } }
+  .manifest{
+    border:1px solid var(--line); border-radius:10px; padding:28px;
+    background:var(--ink);
+  }
+  .manifest h4{
+    font-family:var(--mono); font-size:0.72rem; color:var(--amber); letter-spacing:0.1em;
+    text-transform:uppercase; margin-bottom:20px; padding-bottom:14px; border-bottom:1px solid var(--line);
+  }
+  .manifest ul{ list-style:none; }
+  .manifest li{
+    display:flex; align-items:center; gap:10px;
+    font-size:0.92rem; color:var(--text-light);
+    padding:7px 0; border-bottom:1px dashed var(--line);
+  }
+  .manifest li:last-child{ border-bottom:none; }
+  .manifest li::before{ content:'✓'; color:var(--teal); font-family:var(--mono); font-size:0.8rem; }
+
+  /* ---------- EDUCATION ---------- */
+  #education{ border-bottom:1px solid var(--line); }
+  .edu-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  @media (max-width:780px){ .edu-grid{ grid-template-columns:1fr; } }
+  .edu-card{ border:1px solid var(--line); border-radius:10px; padding:30px; }
+  .edu-card .yr{ font-family:var(--mono); font-size:0.7rem; color:var(--teal); margin-bottom:10px; }
+  .edu-card h3{ font-family:var(--display); font-size:1.25rem; margin-bottom:6px; }
+  .edu-card .school{ color:var(--text-muted); font-size:0.9rem; }
+
+  /* ---------- CONTACT ---------- */
+  #contact{ text-align:center; }
+  #contact .section-inner{ padding:140px 0; }
+  #contact .exhibit-label{ justify-content:center; }
+  #contact .exhibit-label::before{ display:none; }
+  #contact h2{
+    font-family:var(--display); font-weight:700;
+    font-size:clamp(2rem, 6vw, 4rem); margin-bottom:24px;
+  }
+  #contact p{ color:var(--text-muted); max-width:52ch; margin:0 auto 40px; }
+  .contact-links{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--mono); font-size:0.82rem; letter-spacing:0.04em;
+    padding:14px 28px; border-radius:6px; border:1px solid var(--line);
+    transition: all 0.25s ease;
+  }
+  .btn.primary{ background:var(--amber); color:var(--ink); border-color:var(--amber); font-weight:600; }
+  .btn.primary:hover{ background:#f2b25a; }
+  .btn.ghost:hover{ border-color:var(--teal); color:var(--teal); }
+
+  footer{
+    padding:28px 4vw; font-family:var(--mono); font-size:0.68rem; color:var(--text-muted);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    border-top:1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<header class="nav">
+  <div class="tabs" id="tabs">
+    <div class="tab" data-target="profile">Profile</div>
+    <div class="tab" data-target="experience">Experience</div>
+    <div class="tab" data-target="projects">Exhibits</div>
+    <div class="tab" data-target="skills">Manifest</div>
+    <div class="tab" data-target="education">Education</div>
+    <div class="tab" data-target="contact">Contact</div>
+  </div>
+  <div class="brand">FILE // OPEN</div>
+</header>
+<div class="nav-bar"></div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="scanline"></div>
+  <div class="case-meta">
+    <span>CASE NO. <b>SOC‑2024‑PR</b></span>
+    <span>STATUS <b>ACTIVE</b></span>
+    <span>JURISDICTION <b>LONDON, UK</b></span>
+    <span>CLEARANCE <b>OPEN TO WORK</b></span>
+  </div>
+  <h1>PRATHAM<br><span class="accent">/ SUBJECT PROFILE</span></h1>
+  <div class="role">SOC ANALYST <span class="sep">·</span> GRC &amp; COMPLIANCE <span class="sep">·</span> DIGITAL FORENSICS</div>
+  <p class="dek">Cybersecurity &amp; Digital Forensics graduate building the tools I use to defend with —
+    from <strong>agentic SOC automation</strong> to <strong>on‑chain evidence integrity</strong>. This file documents
+    the experience, the exhibits, and the equipment.</p>
+  <div class="stamp">VERIFIED</div>
+  <div class="scroll-cue"><div class="line"></div>SCROLL TO REVIEW FILE</div>
+</section>
+
+<!-- PROFILE -->
+<section id="profile">
+  <div class="section-inner reveal">
+    <div class="exhibit-label">Exhibit A</div>
+    <h2 class="section-title">Subject Profile</h2>
+    <div class="profile-grid">
+      <div>
+        <p>I'm a <strong>London-based cybersecurity analyst</strong> with a foundation in digital forensics and a growing
+          specialism in <strong>SOC operations and GRC</strong>. My BSc paired offensive and defensive security fundamentals
+          with the evidentiary rigor of forensics — chain of custody, integrity, and audit trail thinking shows up in
+          everything I build, including my own tooling.</p>
+        <p>I'm currently deepening the business side of security through a part-time MBA, while actively applying frameworks
+          like <strong>ISO 27001, NIST CSF, NCSC CAF, DORA and IEC 62443</strong> in real assessments. Outside of security work,
+          I build full-stack tools, dabble in Solidity, and occasionally trade the SOC dashboard for a bar counter — I've
+          picked up front-of-house and hospitality experience alongside the day job.</p>
+      </div>
+      <div class="profile-facts">
+        <div class="fact"><div class="k">Based In</div><div class="v">London, United Kingdom</div></div>
+        <div class="fact"><div class="k">Focus Areas</div><div class="v">SOC Analysis · GRC &amp; Compliance · Digital Forensics</div></div>
+        <div class="fact"><div class="k">Currently</div><div class="v">Actively interviewing — SOC / GRC / Cybersecurity roles</div></div>
+        <div class="fact"><div class="k">Studying</div><div class="v">MBA (part-time), Ravensbourne University London</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner reveal">
+    <div class="exhibit-label">Exhibit B</div>
+    <h2 class="section-title">Case History / Experience</h2>
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-date">2023</div>
+        <div class="t-role">Cybersecurity Analyst</div>
+        <div class="t-org">Progressive Corporation</div>
+        <p class="t-desc">Supported security operations and risk activities, applying governance frameworks to real
+          incident and compliance workflows. Delivered a <span class="metric-highlight">30% reduction</span> in
+          incident response time through improved triage and process discipline.</p>
+        <div class="t-tags">
+          <span class="tag">Incident Response</span>
+          <span class="tag">ISO 27001</span>
+          <span class="tag">NIST CSF</span>
+          <span class="tag">NCSC CAF</span>
+          <span class="tag">DORA</span>
+          <span class="tag">IEC 62443</span>
+        </div>
+      </div>
+      <div class="t-item">
+        <div class="t-date">2020 — 2024</div>
+        <div class="t-role">BSc Cybersecurity &amp; Digital Forensics</div>
+        <div class="t-org">Middlesex University, London</div>
+        <p class="t-desc">Built the technical and evidentiary foundation for everything since: network security,
+          forensic investigation methodology, and secure systems thinking.</p>
+        <div class="t-tags">
+          <span class="tag">Network Security</span>
+          <span class="tag">Digital Forensics</span>
+          <span class="tag">Penetration Testing</span>
+        </div>
+      </div>
+      <div class="t-item">
+        <div class="t-date">Ongoing</div>
+        <div class="t-role">Part-time MBA</div>
+        <div class="t-org">Ravensbourne University London</div>
+        <p class="t-desc">Building the business and strategy literacy to sit alongside technical GRC work — case
+          studies spanning strategic analysis, evidence-based decision making, and organisational frameworks.</p>
+        <div class="t-tags">
+          <span class="tag">Strategy</span>
+          <span class="tag">Evidence-Based Decisions</span>
+          <span class="tag">Governance</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS / EXHIBITS -->
+<section id="projects">
+  <div class="section-inner reveal">
+    <div class="exhibit-label">Exhibit C</div>
+    <h2 class="section-title">Physical Evidence / Projects</h2>
+    <div class="exhibit-grid">
+
+      <div class="exhibit-card featured">
+        <span class="featured-badge">FLAGSHIP</span>
+        <div class="exhibit-id"><span>EX‑001 · #a3f9c2e</span><span class="status">● OPERATIONAL</span></div>
+        <div class="inner-grid">
+          <div>
+            <h3>Multi-Agent SOC Analyst Platform</h3>
+            <p>A fully functional AI-powered desktop application (Python / PySide6) that automates the SOC triage
+              workflow end-to-end — mapped to MITRE ATT&amp;CK, backed by SQLite, and rendered in a dark-themed
+              live dashboard. Every destructive action is hard-gated behind human approval by design.</p>
+            <div class="t-tags">
+              <span class="tag">Python</span>
+              <span class="tag">PySide6</span>
+              <span class="tag">MITRE ATT&amp;CK</span>
+              <span class="tag">SQLite</span>
+              <span class="tag">Agentic AI</span>
+            </div>
+          </div>
+          <div class="agent-pipeline">
+            <div class="step"><span class="num">01</span> SOC Analyst Agent — initial triage</div>
+            <div class="step"><span class="num">02</span> Threat Hunter Agent — correlation &amp; context</div>
+            <div class="step"><span class="num">03</span> Risk Assessment Agent — impact scoring</div>
+            <div class="step"><span class="num">04</span> Incident Handler Agent — gated response</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exhibit-card">
+        <div class="exhibit-id"><span>EX‑002 · #7d1b4a0</span><span class="status">● VERIFIED</span></div>
+        <h3>Chain of Custody Management System</h3>
+        <p>An Ethereum DApp built in Solidity for tamper-evident evidence tracking — on-chain access control and
+          cryptographic hashing bring forensic chain-of-custody principles on-chain.</p>
+        <div class="t-tags">
+          <span class="tag">Solidity</span>
+          <span class="tag">Ethereum</span>
+          <span class="tag">Cryptographic Hashing</span>
+        </div>
+      </div>
+
+      <div class="exhibit-card">
+        <div class="exhibit-id"><span>EX‑003 · #f04c88e</span><span class="status">● COMPLETE</span></div>
+        <h3>KC7 Threat Hunting Investigations</h3>
+        <p>Completed the "Rap Beef" and "Valdorian Times" investigation scenarios — hunting through synthetic
+          network and log data using KQL in Azure Data Explorer to trace attacker activity end to end.</p>
+        <div class="t-tags">
+          <span class="tag">KQL</span>
+          <span class="tag">Azure Data Explorer</span>
+          <span class="tag">Threat Hunting</span>
+        </div>
+      </div>
+
+      <div class="exhibit-card">
+        <div class="exhibit-id"><span>EX‑004 · #1e6a92c</span><span class="status">● LIVE</span></div>
+        <h3>Hospitality Staff Training Portal</h3>
+        <p>A full-stack web app supporting staff onboarding and training in a hospitality setting — proof that the
+          same systems thinking applies well outside of pure security work.</p>
+        <div class="t-tags">
+          <span class="tag">React.js</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">MongoDB</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS / MANIFEST -->
+<section id="skills">
+  <div class="section-inner reveal">
+    <div class="exhibit-label">Exhibit D</div>
+    <h2 class="section-title">Equipment Manifest / Skills</h2>
+    <div class="manifest-grid">
+      <div class="manifest">
+        <h4>SOC &amp; Threat Detection</h4>
+        <ul>
+          <li>Splunk</li>
+          <li>Wireshark</li>
+          <li>Nmap</li>
+          <li>Nessus</li>
+          <li>Burp Suite</li>
+          <li>Metasploit</li>
+          <li>Check Point</li>
+          <li>Active Directory</li>
+          <li>Kali Linux</li>
+        </ul>
+      </div>
+      <div class="manifest">
+        <h4>Governance &amp; Frameworks</h4>
+        <ul>
+          <li>ISO 27001</li>
+          <li>NIST CSF</li>
+          <li>NCSC CAF</li>
+          <li>DORA</li>
+          <li>IEC 62443</li>
+        </ul>
+      </div>
+      <div class="manifest">
+        <h4>Development &amp; Scripting</h4>
+        <ul>
+          <li>Python</li>
+          <li>Node.js</li>
+          <li>React.js</li>
+          <li>MongoDB</li>
+          <li>REST APIs</li>
+          <li>Solidity</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner reveal">
+    <div class="exhibit-label">Exhibit E</div>
+    <h2 class="section-title">Credentials on File</h2>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="yr">2020 — 2024</div>
+        <h3>BSc Cybersecurity &amp; Digital Forensics</h3>
+        <div class="school">Middlesex University, London</div>
+      </div>
+      <div class="edu-card">
+        <div class="yr">In Progress · Part-time</div>
+        <h3>MBA</h3>
+        <div class="school">Ravensbourne University London</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner reveal">
+    <div class="exhibit-label">Exhibit F</div>
+    <h2>Request Access to the Full File</h2>
+    <p>Currently interviewing for SOC Analyst, GRC/Compliance, and Cybersecurity roles across the UK.
+      Open to a conversation — the case is active.</p>
+    <div class="contact-links">
+      <a class="btn primary" href="mailto:your.email@example.com">Email Me</a>
+      <a class="btn ghost" href="#" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn ghost" href="#" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 PRATHAM — FILE CLOSED ON REQUEST ONLY</div>
+  <div>LONDON, UK · OPEN TO WORK</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el=> io.observe(el));
+
+  // Tab nav — click to scroll
+  const tabs = document.querySelectorAll('.tab');
+  tabs.forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      const target = document.getElementById(tab.dataset.target);
+      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+
+  // Active tab tracking on scroll
+  const sections = ['profile','experience','projects','skills','education','contact']
+    .map(id=>document.getElementById(id)).filter(Boolean);
+  const navIO = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      const id = e.target.id;
+      const tab = document.querySelector('.tab[data-target="'+id+'"]');
+      if(!tab) return;
+      if(e.isIntersecting){
+        tabs.forEach(t=>t.classList.remove('active'));
+        tab.classList.add('active');
+      }
+    });
+  }, { threshold: 0, rootMargin: '-45% 0px -50% 0px' });
+  sections.forEach(s=> navIO.observe(s));
+</script>
+
+</body>
+</html>
