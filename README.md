@@ -28,7 +28,7 @@ Image paths are relative (`images/...`) so they resolve under `/portfolio/` on G
 | Projects | `#projects` | Evidence-board exhibits |
 | Skills | `#skills` | Tools, frameworks, and training profiles |
 | Education | `#education` | MSc and BSc at Middlesex University |
-| Certificates | `#certificates` | Six evidence-tag credentials, newest first |
+| Certificates | `#certificates` | Nine evidence-tag credentials, newest first |
 | Contact | `#contact` | Email, LinkedIn, and GitHub |
 
 ## Experience
@@ -53,6 +53,9 @@ Newest first. Each tag shows the issuer, issue date, and credential ID. A Verify
 
 | Certificate | Issuer | Issued | Credential ID | Verify |
 |-------------|--------|--------|---------------|--------|
+| LLM Security Fundamentals | AI Security University | Oct 2026 | a288406f-b623-4b7f-9b22-6dd67968de29 | [Verify](https://aisec.university/verify/a288406f-b623-4b7f-9b22-6dd67968de29) |
+| Introduction to AI Security | AI Security University | Oct 2026 | a301d21a-6505-40c9-90b5-e8231c23baed | [Verify](https://aisec.university/verify/a301d21a-6505-40c9-90b5-e8231c23baed) |
+| Zero Touch API Governance | AI Security University | Oct 2026 | f5623241-e124-40ea-a5bb-8ffc43da27f1 | [Verify](https://aisec.university/verify/f5623241-e124-40ea-a5bb-8ffc43da27f1) |
 | Virustotal Fundamentals | KC7 Foundation | Jul 2026 | 73769 | [Verify](https://kc7cyber.com/certificate/earned/73769) |
 | MCP Security Fundamentals | AI Security University | Jul 2026 | ae0cbcf6-a355-4078-b98f-6a5d1fedb1b9 | [Verify](https://aisec.university/verify/ae0cbcf6-a355-4078-b98f-6a5d1fedb1b9) |
 | Jojo's Hospital | KC7 Foundation | Jul 2026 | 68430 | [Verify](https://kc7cyber.com/certificate/earned/68430) |
