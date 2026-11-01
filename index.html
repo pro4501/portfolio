@@ -513,6 +513,60 @@
   .edu-card .school{ color:var(--text-muted); font-size:0.9rem; }
   .edu-card .edu-note{ color:var(--text-muted); font-size:0.9rem; margin-top:12px; }
 
+  /* ---------- CERTIFICATES / EVIDENCE TAGS ---------- */
+  #certificates{ border-bottom:1px solid var(--line); background:var(--ink-2); }
+  .cert-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:22px;
+  }
+  @media (max-width:900px){
+    .cert-grid{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:620px){
+    .cert-grid{ grid-template-columns:1fr; }
+  }
+  .cert-tag{
+    background:var(--paper);
+    color:#20242c;
+    border-radius:3px;
+    padding:16px 18px 18px;
+    border:1px dashed rgba(32,36,44,0.38);
+    box-shadow: 0 16px 28px -18px rgba(0,0,0,0.75);
+  }
+  .cert-tag:nth-child(3n+1){ transform:rotate(-0.5deg); }
+  .cert-tag:nth-child(3n+2){ transform:rotate(0.45deg); }
+  .cert-tag:nth-child(3n){ transform:rotate(-0.25deg); }
+  @media (max-width:620px){
+    .cert-tag{ transform:none; }
+  }
+  .cert-tag .tag-hole{
+    width:12px; height:12px; border-radius:50%;
+    background:var(--ink-2);
+    border:2px solid #8a8172;
+    margin:0 0 12px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.45);
+  }
+  .cert-tag .tag-kicker{
+    font-family:var(--mono); font-size:0.62rem; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--blood); margin-bottom:8px;
+  }
+  .cert-tag h3{
+    font-family:var(--display); font-size:1.12rem; line-height:1.25;
+    color:#20242c; margin-bottom:12px;
+  }
+  .cert-meta{
+    font-family:var(--mono); font-size:0.68rem; color:#3c4352; line-height:1.6;
+  }
+  .cert-meta .id{ overflow-wrap:anywhere; }
+  .cert-tag a.verify{
+    display:inline-block; margin-top:14px;
+    font-family:var(--mono); font-size:0.68rem; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--blood-dark);
+    border-bottom:1px solid var(--blood); padding-bottom:1px;
+  }
+  .cert-tag a.verify:hover{ color:#1f6f68; border-bottom-color:#1f6f68; }
+
   .training-panel{
     margin-top:28px;
     border:1px solid var(--line);
@@ -589,6 +643,7 @@
     <div class="tab" data-target="projects">Exhibits</div>
     <div class="tab" data-target="skills">Manifest</div>
     <div class="tab" data-target="education">Education</div>
+    <div class="tab" data-target="certificates">Certificates</div>
     <div class="tab" data-target="contact">Contact</div>
   </div>
   <div class="brand">FILE // OPEN</div>
@@ -977,13 +1032,88 @@
   </div>
 </section>
 
+<!-- CERTIFICATES -->
+<section id="certificates">
+  <div class="section-inner reveal">
+    <div class="exhibit-label">Exhibit F</div>
+    <h2 class="section-title">Certificates / Evidence Tags</h2>
+    <div class="cert-grid">
+      <article class="cert-tag">
+        <div class="tag-hole" aria-hidden="true"></div>
+        <div class="tag-kicker">Evidence tag · Jul 2026</div>
+        <h3>Virustotal Fundamentals</h3>
+        <div class="cert-meta">
+          <div>Issuer · KC7 Foundation</div>
+          <div>Issued · Jul 2026</div>
+          <div class="id">Credential ID · 73769</div>
+        </div>
+        <a class="verify" href="https://kc7cyber.com/certificate/earned/73769" target="_blank" rel="noopener">Verify</a>
+      </article>
+      <article class="cert-tag">
+        <div class="tag-hole" aria-hidden="true"></div>
+        <div class="tag-kicker">Evidence tag · Jul 2026</div>
+        <h3>MCP Security Fundamentals</h3>
+        <div class="cert-meta">
+          <div>Issuer · AI Security University</div>
+          <div>Issued · Jul 2026</div>
+          <div class="id">Credential ID · ae0cbcf6-a355-4078-b98f-6a5d1fedb1b9</div>
+        </div>
+        <a class="verify" href="https://aisec.university/verify/ae0cbcf6-a355-4078-b98f-6a5d1fedb1b9" target="_blank" rel="noopener">Verify</a>
+      </article>
+      <article class="cert-tag">
+        <div class="tag-hole" aria-hidden="true"></div>
+        <div class="tag-kicker">Evidence tag · Jul 2026</div>
+        <h3>Jojo's Hospital</h3>
+        <div class="cert-meta">
+          <div>Issuer · KC7 Foundation</div>
+          <div>Issued · Jul 2026</div>
+          <div class="id">Credential ID · 68430</div>
+        </div>
+        <a class="verify" href="https://kc7cyber.com/certificate/earned/68430" target="_blank" rel="noopener">Verify</a>
+      </article>
+      <article class="cert-tag">
+        <div class="tag-hole" aria-hidden="true"></div>
+        <div class="tag-kicker">Evidence tag · Jul 2026</div>
+        <h3>Valdorian Times</h3>
+        <div class="cert-meta">
+          <div>Issuer · KC7 Foundation</div>
+          <div>Issued · Jul 2026</div>
+          <div class="id">Credential ID · 67455</div>
+        </div>
+        <a class="verify" href="https://kc7cyber.com/certificate/earned/67455" target="_blank" rel="noopener">Verify</a>
+      </article>
+      <article class="cert-tag">
+        <div class="tag-hole" aria-hidden="true"></div>
+        <div class="tag-kicker">Evidence tag · Jun 2026</div>
+        <h3>Rap Beef</h3>
+        <div class="cert-meta">
+          <div>Issuer · KC7 Foundation</div>
+          <div>Issued · Jun 2026</div>
+          <div class="id">Credential ID · 67263</div>
+        </div>
+        <a class="verify" href="https://kc7cyber.com/certificate/earned/67263" target="_blank" rel="noopener">Verify</a>
+      </article>
+      <article class="cert-tag">
+        <div class="tag-hole" aria-hidden="true"></div>
+        <div class="tag-kicker">Evidence tag · Nov 2024</div>
+        <h3>AI Testing</h3>
+        <div class="cert-meta">
+          <div>Issuer · IT Talent Hub</div>
+          <div>Issued · Nov 2024</div>
+          <div>No credential ID on file</div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="bullet-hole" style="top:14%; left:14%;" aria-hidden="true">
     <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="5" fill="#0b0e14" stroke="#3a3f4a" stroke-width="1"/><g stroke="#565c68" stroke-width="1"><path d="M20 20 L8 6 M20 20 L1 18 M20 20 L10 36 M20 20 L34 4 M20 20 L39 24 M20 20 L26 39"/></g></svg>
   </div>
   <div class="section-inner reveal">
-    <div class="exhibit-label">Exhibit F</div>
+    <div class="exhibit-label">Exhibit G</div>
     <h2>Request Access to the Full File</h2>
     <p>Open to SOC analyst, penetration testing and GRC roles. The case is active.</p>
     <div class="contact-links">
@@ -1020,7 +1150,7 @@
   });
 
   // Active tab tracking on scroll
-  const sections = ['profile','experience','projects','skills','education','contact']
+  const sections = ['profile','experience','projects','skills','education','certificates','contact']
     .map(id=>document.getElementById(id)).filter(Boolean);
   const navIO = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
