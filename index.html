@@ -373,6 +373,7 @@
   .exhibit-card:nth-child(2){ transform:rotate(0.9deg); }
   .exhibit-card:nth-child(3){ transform:rotate(-0.6deg); }
   .exhibit-card:nth-child(4){ transform:rotate(1.2deg); }
+  .exhibit-card:nth-child(5){ transform:rotate(-0.8deg); }
   .exhibit-card:hover{
     transform:translateY(-6px) rotate(0deg) scale(1.01);
     border-color: rgba(79,184,174,0.4);
@@ -399,6 +400,42 @@
   @keyframes recBlink{ 0%,100%{opacity:1;} 50%{opacity:0.2;} }
   .exhibit-still .ts{ position:absolute; bottom:8px; right:10px; font-family:var(--mono); font-size:0.58rem; color:rgba(232,163,61,0.7); }
   .exhibit-still svg{ position:absolute; inset:0; width:100%; height:100%; opacity:0.5; }
+
+  /* evidence photograph — paper mat, case-file frame */
+  .exhibit-photo-frame{
+    background:#d7d0bf;
+    padding:8px 8px 10px;
+    margin:0 0 18px;
+    border-radius:2px;
+    box-shadow: 0 12px 24px -14px rgba(0,0,0,0.85), inset 0 0 0 1px rgba(0,0,0,0.08);
+  }
+  .exhibit-photo{
+    display:block;
+    width:100%;
+    max-width:100%;
+    height:auto;
+    border:1px solid rgba(0,0,0,0.4);
+    background:#0b0e14;
+  }
+  .exhibit-photo-frame figcaption{
+    font-family:var(--mono);
+    font-size:0.58rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:#3a3428;
+    margin-top:6px;
+  }
+  .exhibit-links{
+    display:flex; flex-wrap:wrap; gap:14px;
+    margin-top:16px;
+  }
+  .exhibit-links a{
+    font-family:var(--mono); font-size:0.68rem; letter-spacing:0.06em;
+    text-transform:uppercase; color:var(--amber);
+    border-bottom:1px solid rgba(232,163,61,0.5);
+    padding-bottom:2px;
+  }
+  .exhibit-links a:hover{ color:var(--teal); border-color:var(--teal); }
 
   .exhibit-id{
     font-family:var(--mono); font-size:0.68rem; color:var(--text-muted); letter-spacing:0.08em;
@@ -474,6 +511,37 @@
   .edu-card .yr{ font-family:var(--mono); font-size:0.7rem; color:var(--teal); margin-bottom:10px; }
   .edu-card h3{ font-family:var(--display); font-size:1.25rem; margin-bottom:6px; }
   .edu-card .school{ color:var(--text-muted); font-size:0.9rem; }
+  .edu-card .edu-note{ color:var(--text-muted); font-size:0.9rem; margin-top:12px; }
+
+  .training-panel{
+    margin-top:28px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:28px;
+    background:var(--ink);
+  }
+  .training-panel h4{
+    font-family:var(--mono); font-size:0.72rem; color:var(--amber); letter-spacing:0.1em;
+    text-transform:uppercase; margin-bottom:20px; padding-bottom:14px; border-bottom:1px solid var(--line);
+  }
+  .training-grid{ display:grid; grid-template-columns:1fr 1fr; gap:28px 40px; }
+  @media (max-width:780px){ .training-grid{ grid-template-columns:1fr; } }
+  .training-grid .k{
+    font-family:var(--mono); font-size:0.68rem; color:var(--text-muted);
+    letter-spacing:0.12em; text-transform:uppercase; margin-bottom:8px;
+  }
+  .training-grid p{ color:var(--text-muted); font-size:0.92rem; margin-bottom:12px; }
+  .training-grid a{
+    color:var(--amber); font-family:var(--mono); font-size:0.82rem;
+    border-bottom:1px solid rgba(232,163,61,0.45);
+  }
+  .training-grid a:hover{ color:var(--teal); border-bottom-color:var(--teal); }
+  .training-grid ul{ list-style:none; }
+  .training-grid li{
+    font-size:0.92rem; color:var(--text-light);
+    padding:6px 0; border-bottom:1px dashed var(--line);
+  }
+  .training-grid li:last-child{ border-bottom:none; }
 
   /* ---------- CONTACT ---------- */
   #contact{ text-align:center; position:relative; overflow:hidden; }
@@ -554,10 +622,8 @@
     <span>CLEARANCE <b>OPEN TO WORK</b></span>
   </div>
   <h1>PRATHAM<br><span class="accent">/ SUBJECT PROFILE</span></h1>
-  <div class="role">SOC ANALYST <span class="sep">·</span> GRC &amp; COMPLIANCE <span class="sep">·</span> DIGITAL FORENSICS</div>
-  <p class="dek">Cybersecurity &amp; Digital Forensics graduate building the tools I use to defend with —
-    from <strong>agentic SOC automation</strong> to <strong>on‑chain evidence integrity</strong>. This file documents
-    the experience, the exhibits, and the equipment.</p>
+  <div class="role">PENETRATION TESTING <span class="sep">·</span> SOC ANALYST <span class="sep">·</span> GRC</div>
+  <p class="dek">BSc Cybersecurity &amp; Digital Forensics (2:1), with an MSc in Cybersecurity &amp; Emerging Threats underway, finishing by July 2027. This file documents <strong>authorised testing</strong>, <strong>agentic SOC automation</strong>, and <strong>on‑chain evidence integrity</strong>.</p>
 
   <!-- hanging ID badge -->
   <div class="badge-rig" aria-hidden="true">
@@ -566,8 +632,8 @@
     <div class="id-card">
       <div class="punch"></div>
       <div class="id-photo"></div>
-      <div class="id-name">P. — ANALYST</div>
-      <div class="id-role">Access Level · Verified</div>
+      <div class="id-name">P. BRAHMBHATT</div>
+      <div class="id-role">SOC · Pentest · GRC</div>
       <div class="id-barcode"></div>
       <div class="id-num">NO. SOC‑2024‑PR · EXP N/A</div>
       <svg class="thumbprint" viewBox="0 0 40 40">
@@ -594,20 +660,20 @@
     <h2 class="section-title">Subject Profile</h2>
     <div class="profile-grid">
       <div>
-        <p>I'm a <strong>London-based cybersecurity analyst</strong> with a foundation in digital forensics and a growing
-          specialism in <strong>SOC operations and GRC</strong>. My BSc paired offensive and defensive security fundamentals
-          with the evidentiary rigor of forensics — chain of custody, integrity, and audit trail thinking shows up in
-          everything I build, including my own tooling.</p>
-        <p>I'm currently deepening the business side of security through a part-time MBA, while actively applying frameworks
-          like <strong>ISO 27001, NIST CSF, NCSC CAF, DORA and IEC 62443</strong> in real assessments. Outside of security work,
-          I build full-stack tools, dabble in Solidity, and occasionally trade the SOC dashboard for a bar counter — I've
-          picked up front-of-house and hospitality experience alongside the day job.</p>
+        <p>I'm a <strong>London-based cybersecurity graduate</strong> with a BSc (2:1) in Cybersecurity &amp; Digital Forensics
+          and an MSc in Cybersecurity &amp; Emerging Threats at Middlesex University, ongoing and finishing by July 2027.
+          The degree work paired offensive and defensive fundamentals with forensic chain of custody, integrity, and
+          audit trails — the same habits show up in the tools I build.</p>
+        <p>I work with frameworks such as <strong>ISO 27001, NIST CSF, NCSC CAF, DORA and IEC 62443</strong> through labs,
+          authorised engagements and coursework. Recent security work includes three authorised red-team engagements,
+          triaged findings on a vulnerability disclosure programme, and AI-related project work. Four years leading a
+          busy hospitality team also means I can explain a finding in plain language.</p>
         <div class="field-note">— filed &amp; verified, P.</div>
       </div>
       <div class="profile-facts">
-        <div class="fact"><div class="k">Based In</div><div class="v">London, United Kingdom</div></div>
-        <div class="fact"><div class="k">Focus Areas</div><div class="v">SOC Analysis · GRC &amp; Compliance · Digital Forensics</div></div>
-        <div class="fact"><div class="k">Currently</div><div class="v">Actively interviewing — SOC / GRC / Cybersecurity roles</div></div>
+        <div class="fact"><div class="k">Based In</div><div class="v">Wembley, London</div></div>
+        <div class="fact"><div class="k">Focus Areas</div><div class="v">Penetration Testing · SOC Analysis · GRC</div></div>
+        <div class="fact"><div class="k">Currently</div><div class="v">Open to SOC analyst, penetration testing and GRC roles</div></div>
       </div>
     </div>
   </div>
@@ -620,43 +686,57 @@
     <h2 class="section-title">Case History / Experience</h2>
     <div class="timeline">
       <div class="t-item">
-        <div class="t-date">2023</div>
-        <div class="t-role">Cybersecurity Analyst</div>
-        <div class="t-org">Progressive Corporation</div>
-        <p class="t-desc">Supported security operations and risk activities, applying governance frameworks to real
-          incident and compliance workflows. Delivered a <span class="metric-highlight">30% reduction</span> in
-          incident response time through improved triage and process discipline.</p>
+        <div class="t-date">AUG 2026 — OCT 2026</div>
+        <div class="t-role">Generalist Expert (Contractor)</div>
+        <div class="t-org">Mercor · Remote</div>
+        <p class="t-desc">AI-related project work for a Mercor client, including model evaluation, training data,
+          prompt writing and quality assurance, delivered independently to written guidelines and deadlines.</p>
         <div class="t-tags">
-          <span class="tag">Incident Response</span>
-          <span class="tag">ISO 27001</span>
-          <span class="tag">NIST CSF</span>
-          <span class="tag">NCSC CAF</span>
-          <span class="tag">DORA</span>
-          <span class="tag">IEC 62443</span>
+          <span class="tag">AI Evaluation</span>
+          <span class="tag">Prompt Writing</span>
+          <span class="tag">Quality Assurance</span>
         </div>
       </div>
       <div class="t-item">
-        <div class="t-date">2020 — 2024</div>
-        <div class="t-role">BSc Cybersecurity &amp; Digital Forensics</div>
-        <div class="t-org">Middlesex University, London</div>
-        <p class="t-desc">Built the technical and evidentiary foundation for everything since: network security,
-          forensic investigation methodology, and secure systems thinking.</p>
+        <div class="t-date">JUL 2026 — AUG 2026</div>
+        <div class="t-role">Penetration Testing / Red Team Intern</div>
+        <div class="t-org">Rynex Security</div>
+        <p class="t-desc">Completed three authorised engagements within agreed scope: a public-facing website, a
+          Metasploitable target, and an operating-system dump supplied by Rynex. Assessed the website for
+          exploitable weaknesses, validated vulnerable services on the Metasploitable host in a controlled
+          environment, and analysed the OS dump for post-exploitation and forensic artefacts.</p>
         <div class="t-tags">
-          <span class="tag">Network Security</span>
-          <span class="tag">Digital Forensics</span>
-          <span class="tag">Penetration Testing</span>
+          <span class="tag">Authorised Testing</span>
+          <span class="tag">Metasploitable</span>
+          <span class="tag">Web Testing</span>
+          <span class="tag">Forensic Artefacts</span>
         </div>
       </div>
       <div class="t-item">
-        <div class="t-date">Ongoing</div>
-        <div class="t-role">Full-time MBA</div>
-        <div class="t-org">Middlesex University London</div>
-        <p class="t-desc">Building the business and strategy literacy to sit alongside technical GRC work — case
-          studies spanning strategic analysis, evidence-based decision making, and organisational frameworks.</p>
+        <div class="t-date">ONGOING · SETTLE VDP OCT 2026</div>
+        <div class="t-role">Security Researcher</div>
+        <div class="t-org">Bugcrowd · handle pratham4501</div>
+        <p class="t-desc">On the Settle vulnerability disclosure programme, manually tested a live web application
+          within the programme's scope and rules. Reported invoice amount tampering (triaged P4) and account
+          enumeration (triaged).</p>
         <div class="t-tags">
-          <span class="tag">Strategy</span>
-          <span class="tag">Evidence-Based Decisions</span>
-          <span class="tag">Governance</span>
+          <span class="tag">Vulnerability Disclosure</span>
+          <span class="tag">Invoice Tampering</span>
+          <span class="tag">Account Enumeration</span>
+          <span class="tag">P4</span>
+        </div>
+      </div>
+      <div class="t-item">
+        <div class="t-date">DEC 2024 — SEP 2026</div>
+        <div class="t-role">General Manager</div>
+        <div class="t-org">Yatri India · Wembley</div>
+        <p class="t-desc">Led daily operations and a team of 10+ staff at Yatri Indian Restaurant. Resolved
+          customer issues under pressure and explained problems clearly to non-technical people. Previously
+          Assistant Manager (Sep 2022 — Nov 2024).</p>
+        <div class="t-tags">
+          <span class="tag">Operations</span>
+          <span class="tag">Team Leadership</span>
+          <span class="tag">Customer Issues</span>
         </div>
       </div>
     </div>
@@ -689,47 +769,39 @@
         <div class="exhibit-id"><span>EX‑001 · #a3f9c2e</span><span class="status">● OPERATIONAL</span></div>
         <div class="inner-grid">
           <div>
-            <div class="exhibit-still">
-              <div class="rec">● REC</div><div class="ts">CAM_04 // 03:14:52</div>
-              <svg viewBox="0 0 300 110"><g stroke="#e8a33d" stroke-width="1" fill="none" opacity="0.6">
-                <rect x="14" y="18" width="70" height="46" rx="2"/>
-                <rect x="98" y="18" width="70" height="46" rx="2"/>
-                <rect x="182" y="18" width="70" height="46" rx="2"/>
-                <path d="M49 64 L133 18 M133 64 L217 18"/>
-                <circle cx="49" cy="41" r="14"/><circle cx="133" cy="41" r="14"/><circle cx="217" cy="41" r="14"/>
-              </g></svg>
-            </div>
+            <figure class="exhibit-photo-frame">
+              <img class="exhibit-photo" src="images/soc-platform.jpg" width="1280" height="720" alt="SOC alert-triage evidence still: a colour-coded alert queue, a four-agent pipeline labelled Analyst, Threat Hunter, Risk and Incident Handler, and a human-approval lock beside a Respond control.">
+              <figcaption>Evidence still · SOC alert triage</figcaption>
+            </figure>
             <h3>Multi-Agent SOC Analyst Platform</h3>
-            <p>A fully functional AI-powered desktop application (Python / PySide6) that automates the SOC triage
-              workflow end-to-end — mapped to MITRE ATT&amp;CK, backed by SQLite, and rendered in a dark-themed
-              live dashboard. Every destructive action is hard-gated behind human approval by design.</p>
+            <p>A desktop tool (Python, SQLite, PySide6) that routes each alert through four cooperating agents —
+              Analyst, Threat Hunter, Risk Assessment and Incident Handler. Response actions run only after human
+              approval, and every action is written to an audit log.</p>
             <div class="t-tags">
               <span class="tag">Python</span>
               <span class="tag">PySide6</span>
-              <span class="tag">MITRE ATT&amp;CK</span>
               <span class="tag">SQLite</span>
               <span class="tag">Agentic AI</span>
+            </div>
+            <div class="exhibit-links">
+              <a href="https://github.com/pro4501/soc-alert-triage" target="_blank" rel="noopener">Repository</a>
             </div>
           </div>
           <div class="agent-pipeline">
             <div class="step"><span class="num">01</span> SOC Analyst Agent — initial triage</div>
-            <div class="step"><span class="num">02</span> Threat Hunter Agent — correlation &amp; context</div>
-            <div class="step"><span class="num">03</span> Risk Assessment Agent — impact scoring</div>
-            <div class="step"><span class="num">04</span> Incident Handler Agent — gated response</div>
+            <div class="step"><span class="num">02</span> Threat Hunter Agent</div>
+            <div class="step"><span class="num">03</span> Risk Assessment Agent</div>
+            <div class="step"><span class="num">04</span> Incident Handler Agent — response only after human approval</div>
           </div>
         </div>
       </div>
 
       <div class="exhibit-card">
         <div class="pushpin"><svg viewBox="0 0 20 20"><circle cx="10" cy="9" r="7" fill="#4fb8ae"/><circle cx="8" cy="7" r="2" fill="#bdeee8" opacity="0.7"/><rect x="9" y="14" width="2" height="5" fill="#2c6e67"/></svg></div>
-        <div class="exhibit-still">
-          <div class="rec">● REC</div><div class="ts">LEDGER // BLK 000</div>
-          <svg viewBox="0 0 300 110"><g stroke="#4fb8ae" stroke-width="1" fill="none" opacity="0.6">
-            <rect x="18" y="30" width="50" height="34" rx="2"/><rect x="82" y="30" width="50" height="34" rx="2"/>
-            <rect x="146" y="30" width="50" height="34" rx="2"/><rect x="210" y="30" width="50" height="34" rx="2"/>
-            <path d="M68 47 L82 47 M132 47 L146 47 M196 47 L210 47"/>
-          </g></svg>
-        </div>
+        <figure class="exhibit-photo-frame">
+          <img class="exhibit-photo" src="images/chain-of-custody.jpg" width="1280" height="720" alt="Chain-of-custody evidence still: a sealed bag tagged Exhibit B with hash 0x3f9a…c21, four linked blocks, and an audit-trail ledger of sealed, linked and verified events.">
+          <figcaption>Evidence still · chain of custody</figcaption>
+        </figure>
         <div class="exhibit-id"><span>EX‑002 · #7d1b4a0</span><span class="status">● VERIFIED</span></div>
         <h3>Chain of Custody Management System</h3>
         <p>An Ethereum DApp built in Solidity for tamper-evident evidence tracking — on-chain access control and
@@ -744,16 +816,17 @@
           <span class="tag">Ethereum</span>
           <span class="tag">Cryptographic Hashing</span>
         </div>
+        <div class="exhibit-links">
+          <a href="https://github.com/pro4501/chain-of-custody" target="_blank" rel="noopener">Repository</a>
+        </div>
       </div>
 
       <div class="exhibit-card">
         <div class="pushpin"><svg viewBox="0 0 20 20"><circle cx="10" cy="9" r="7" fill="#e8a33d"/><circle cx="8" cy="7" r="2" fill="#ffe3ad" opacity="0.7"/><rect x="9" y="14" width="2" height="5" fill="#8a5f1f"/></svg></div>
-        <div class="exhibit-still">
-          <div class="rec">● REC</div><div class="ts">KQL // TRACE 07</div>
-          <svg viewBox="0 0 300 110"><g stroke="#e8a33d" stroke-width="1" fill="none" opacity="0.6">
-            <path d="M14 90 L44 40 L74 70 L104 20 L134 55 L164 30 L194 65 L224 25 L254 60 L284 15"/>
-          </g></svg>
-        </div>
+        <figure class="exhibit-photo-frame">
+          <img class="exhibit-photo" src="images/kc7-threat-hunt.jpg" width="1280" height="720" alt="KC7 threat-hunt evidence still: a KQL SecurityEvent query, Windows event logs, a magnifier on a process-creation row for svc_backup, and an attacker timeline from initial access through persistence.">
+          <figcaption>Evidence still · KC7 threat hunt</figcaption>
+        </figure>
         <div class="exhibit-id"><span>EX‑003 · #f04c88e</span><span class="status">● COMPLETE</span></div>
         <h3>KC7 Threat Hunting Investigations</h3>
         <p>Completed the "Rap Beef" and "Valdorian Times" investigation scenarios — hunting through synthetic
@@ -767,13 +840,10 @@
 
       <div class="exhibit-card">
         <div class="pushpin"><svg viewBox="0 0 20 20"><circle cx="10" cy="9" r="7" fill="#c1443c"/><circle cx="8" cy="7" r="2" fill="#f2a89e" opacity="0.7"/><rect x="9" y="14" width="2" height="5" fill="#7a2a24"/></svg></div>
-        <div class="exhibit-still">
-          <div class="rec">● REC</div><div class="ts">CAM_11 // FOH</div>
-          <svg viewBox="0 0 300 110"><g stroke="#c1443c" stroke-width="1" fill="none" opacity="0.55">
-            <rect x="20" y="20" width="260" height="70" rx="4"/>
-            <path d="M20 55 L280 55 M90 20 L90 90 M190 20 L190 90"/>
-          </g></svg>
-        </div>
+        <figure class="exhibit-photo-frame">
+          <img class="exhibit-photo" src="images/hospitality-portal.jpg" width="1280" height="720" alt="Hospitality staff training portal on a laptop: modules for notifications and alerts, access and security, cleaning and hygiene, and workplace essentials, beside a checked training checklist.">
+          <figcaption>Evidence still · hospitality training portal</figcaption>
+        </figure>
         <div class="exhibit-id"><span>EX‑004 · #1e6a92c</span><span class="status">● LIVE</span></div>
         <h3>Hospitality Staff Training Portal</h3>
         <p>A full-stack web app supporting staff onboarding and training in a hospitality setting — proof that the
@@ -782,6 +852,23 @@
           <span class="tag">React.js</span>
           <span class="tag">Node.js</span>
           <span class="tag">MongoDB</span>
+        </div>
+      </div>
+
+      <div class="exhibit-card">
+        <div class="pushpin"><svg viewBox="0 0 20 20"><circle cx="10" cy="9" r="7" fill="#4fb8ae"/><circle cx="8" cy="7" r="2" fill="#bdeee8" opacity="0.7"/><rect x="9" y="14" width="2" height="5" fill="#2c6e67"/></svg></div>
+        <div class="exhibit-id"><span>EX‑005 · #b7e21c4</span><span class="status">● LIVE</span></div>
+        <h3>Nmap Practice Range</h3>
+        <p>A browser-based simulated Kali terminal and network for safe Nmap practice. It models scan types,
+          version and script scans, OS detection and firewall filtering, with 25 lab challenges and a quiz.</p>
+        <div class="t-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Nmap</span>
+        </div>
+        <div class="exhibit-links">
+          <a href="https://github.com/pro4501/nmap-practice-range" target="_blank" rel="noopener">Repository</a>
+          <a href="https://pro4501.github.io/nmap-practice-range/" target="_blank" rel="noopener">Live demo</a>
         </div>
       </div>
 
@@ -802,15 +889,15 @@
       <div class="manifest">
         <h4>SOC &amp; Threat Detection</h4>
         <ul>
-          <li>Splunk</li>
-          <li>Wireshark</li>
-          <li>Nmap</li>
-          <li>Nessus</li>
           <li>Burp Suite</li>
-          <li>Metasploit</li>
-          <li>Check Point</li>
-          <li>Active Directory</li>
           <li>Kali Linux</li>
+          <li>Metasploit</li>
+          <li>Nmap</li>
+          <li>Wireshark</li>
+          <li>Maltego</li>
+          <li>Splunk</li>
+          <li>KQL</li>
+          <li>FTK Imager</li>
         </ul>
       </div>
       <div class="manifest">
@@ -821,18 +908,48 @@
           <li>NCSC CAF</li>
           <li>DORA</li>
           <li>IEC 62443</li>
+          <li>OWASP Top 10</li>
+          <li>OWASP API Security Top 10</li>
+          <li>OWASP Top 10 for LLMs</li>
         </ul>
       </div>
       <div class="manifest">
         <h4>Development &amp; Scripting</h4>
         <ul>
           <li>Python</li>
+          <li>Bash</li>
+          <li>SQL</li>
+          <li>JavaScript</li>
+          <li>HTML</li>
           <li>Node.js</li>
           <li>React.js</li>
           <li>MongoDB</li>
-          <li>REST APIs</li>
           <li>Solidity</li>
         </ul>
+      </div>
+    </div>
+    <div class="training-panel">
+      <h4>Training on file</h4>
+      <div class="training-grid">
+        <div>
+          <div class="k">Platforms</div>
+          <p><a href="https://tryhackme.com/p/08prathambarot" target="_blank" rel="noopener">TryHackMe — 08prathambarot</a></p>
+          <p>Ranked in the top 30% of TryHackMe users. Rooms include Dead Endpoint (Hard, DFIR and malware analysis), Offensive Security Intro, Web Application Basics, HTTP in Detail, and Linux Fundamentals 1–3.</p>
+          <p><a href="https://profile.hackthebox.com/profile/01a162d7-4b64-7167-b3c1-ba81b749f5f5" target="_blank" rel="noopener">Hack The Box Academy</a></p>
+          <p>Modules include Network Enumeration with Nmap (6 Academy badges).</p>
+        </div>
+        <div>
+          <div class="k">AI Security University</div>
+          <p>Completed courses:</p>
+          <ul>
+            <li>Introduction to AI Security</li>
+            <li>LLM Security Fundamentals</li>
+            <li>MCP Security Fundamentals</li>
+            <li>Managing Your Agentic Employees</li>
+            <li>AI Security for Everyone</li>
+            <li>Zero Touch API Governance</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -845,9 +962,16 @@
     <h2 class="section-title">Credentials on File</h2>
     <div class="edu-grid">
       <div class="edu-card">
-        <div class="yr">2020 — 2024</div>
+        <div class="yr">ONGOING · FINISHING BY JULY 2027</div>
+        <h3>MSc Cybersecurity &amp; Emerging Threats</h3>
+        <div class="school">Middlesex University</div>
+        <p class="edu-note">In progress. Includes a machine-learning network intrusion detection project and enterprise LAN design coursework.</p>
+      </div>
+      <div class="edu-card">
+        <div class="yr">2020 — 2024 · 2:1</div>
         <h3>BSc Cybersecurity &amp; Digital Forensics</h3>
-        <div class="school">Middlesex University, London</div>
+        <div class="school">Middlesex University</div>
+        <p class="edu-note">Upper Second-Class Honours (2:1). Included a digital incident scene investigation module (FTK Imager, FTK Toolkit) with a formal forensic report.</p>
       </div>
     </div>
   </div>
@@ -861,12 +985,11 @@
   <div class="section-inner reveal">
     <div class="exhibit-label">Exhibit F</div>
     <h2>Request Access to the Full File</h2>
-    <p>Currently interviewing for SOC Analyst, GRC/Compliance, and Cybersecurity roles across the UK.
-      Open to a conversation — the case is active.</p>
+    <p>Open to SOC analyst, penetration testing and GRC roles. The case is active.</p>
     <div class="contact-links">
-      <a class="btn primary" href="mailto:your.email@example.com">Email Me</a>
-      <a class="btn ghost" href="#" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="btn ghost" href="#" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn primary" href="mailto:08prathambarot@gmail.com" target="_blank" rel="noopener">Email Me</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/prathambrahmbhatt/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn ghost" href="https://github.com/pro4501" target="_blank" rel="noopener">GitHub</a>
     </div>
   </div>
   <div class="case-stamp">CASE CLOSED</div>
@@ -874,7 +997,7 @@
 
 <footer>
   <div>© 2026 PRATHAM — FILE CLOSED ON REQUEST ONLY</div>
-  <div>LONDON, UK · OPEN TO WORK</div>
+  <div>WEMBLEY, LONDON · OPEN TO SOC · PENTEST · GRC</div>
 </footer>
 
 <script>
