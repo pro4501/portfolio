@@ -117,10 +117,13 @@ Exhibit photographs use `max-width: 100%` and `height: auto` inside a paper mat 
 
 ## Accessibility
 
-- `prefers-reduced-motion` disables decorative animation
+- `prefers-reduced-motion` disables decorative animation and shows section content immediately
+- Sticky folder-tab navigation highlights the section in view; under 1040px it collapses to a menu button
+- Headings sit below the bar via `scroll-padding` / `scroll-margin`
+- Visible focus styles on tabs, links, cards, and buttons
 - Heading hierarchy follows the case-file sections
 - Decorative marks are `aria-hidden`
-- Exhibit images have descriptive alt text
+- Exhibit images have descriptive alt text and scale with the viewport
 
 ## Browser support
 
