@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pratham — Case File // Cybersecurity &amp; Digital Forensics</title>
-<meta property="og:image" content="https://pro4501.github.io/portfolio/images/pratham-headshot.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
@@ -269,26 +268,6 @@
   }
   .hero .dek strong{ color:var(--text-light); font-weight:500; }
 
-  .hero-intro{
-    display:flex; align-items:center;
-    gap: clamp(1.25rem, 3vw, 2.25rem);
-    position:relative; z-index:2;
-  }
-  .hero-portrait{
-    display:block;
-    width: min(300px, 34vw);
-    max-width: 300px;
-    height: auto;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    flex: 0 0 auto;
-    border-radius: 16px;
-    border: 1px solid var(--amber);
-    box-shadow: 0 18px 40px -18px rgba(0,0,0,0.8);
-    background: var(--ink-3);
-  }
-  .hero-copy{ min-width: 0; flex: 1 1 auto; }
-
   @keyframes fadeUp{
     from{ opacity:0; transform:translateY(18px); }
     to{ opacity:1; transform:translateY(0); }
@@ -378,13 +357,14 @@
   @keyframes cueMove{ 0%{left:-100%;} 50%{left:0;} 100%{left:100%;} }
 
   @media (min-width:901px){
-    .hero-intro{ max-width: calc(100% - 230px); }
-    .hero .dek{ max-width: min(42rem, 100%); }
+    .hero .case-meta,
+    .hero h1,
+    .hero .role,
+    .hero .dek{ max-width: calc(100% - 250px); }
+    .hero .dek{ max-width: min(42rem, calc(100% - 250px)); }
     .badge-rig{ top: var(--nav-h); }
   }
   @media (max-width:900px){
-    .hero-intro{ flex-direction: column; align-items: flex-start; }
-    .hero-portrait{ width: min(280px, 78vw); max-width: 280px; }
     .badge-rig{ position:static; margin: 28px auto 8px; animation:none; opacity:1; align-items:center; }
     .lanyard{ height:32px; }
     .id-card{ animation:none; }
@@ -836,9 +816,6 @@
     <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="5" fill="#0b0e14" stroke="#3a3f4a" stroke-width="1"/><g stroke="#565c68" stroke-width="1"><path d="M20 20 L8 6 M20 20 L1 18 M20 20 L10 36 M20 20 L34 4 M20 20 L39 24 M20 20 L26 39"/></g></svg>
   </div>
 
-  <div class="hero-intro">
-    <img class="hero-portrait" src="images/pratham-headshot.jpg" alt="Pratham Brahmbhatt" width="800" height="1000" loading="eager">
-    <div class="hero-copy">
   <div class="case-meta">
     <span>CASE NO. <b>SOC‑2024‑PR</b></span>
     <span>STATUS <b>ACTIVE</b></span>
@@ -848,8 +825,6 @@
   <h1>PRATHAM<br><span class="accent">/ SUBJECT PROFILE</span></h1>
   <div class="role">PENETRATION TESTING <span class="sep">·</span> SOC ANALYST <span class="sep">·</span> GRC</div>
   <p class="dek">BSc Cybersecurity &amp; Digital Forensics (2:1), with an MSc in Cybersecurity &amp; Emerging Threats underway, finishing by July 2027. This file documents <strong>authorised testing</strong>, <strong>agentic SOC automation</strong>, and <strong>on‑chain evidence integrity</strong>.</p>
-    </div>
-  </div>
 
   <!-- hanging ID badge -->
   <div class="badge-rig" aria-hidden="true">
