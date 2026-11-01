@@ -28,6 +28,7 @@ Image paths are relative (`images/...`) so they resolve under `/portfolio/` on G
 | Projects | `#projects` | Evidence-board exhibits |
 | Skills | `#skills` | Tools, frameworks, and training profiles |
 | Education | `#education` | MSc and BSc at Middlesex University |
+| Certificates | `#certificates` | Six evidence-tag credentials, newest first |
 | Contact | `#contact` | Email, LinkedIn, and GitHub |
 
 ## Experience
@@ -45,6 +46,19 @@ Newest first:
 - **BSc Cybersecurity & Digital Forensics**, Middlesex University — 2020–2024, 2:1.
 
 The MSc is not labelled part-time or full-time.
+
+## Certificates
+
+Newest first. Each tag shows the issuer, issue date, and credential ID. A Verify link is included only where one was supplied.
+
+| Certificate | Issuer | Issued | Credential ID | Verify |
+|-------------|--------|--------|---------------|--------|
+| Virustotal Fundamentals | KC7 Foundation | Jul 2026 | 73769 | [Verify](https://kc7cyber.com/certificate/earned/73769) |
+| MCP Security Fundamentals | AI Security University | Jul 2026 | ae0cbcf6-a355-4078-b98f-6a5d1fedb1b9 | [Verify](https://aisec.university/verify/ae0cbcf6-a355-4078-b98f-6a5d1fedb1b9) |
+| Jojo's Hospital | KC7 Foundation | Jul 2026 | 68430 | [Verify](https://kc7cyber.com/certificate/earned/68430) |
+| Valdorian Times | KC7 Foundation | Jul 2026 | 67455 | [Verify](https://kc7cyber.com/certificate/earned/67455) |
+| Rap Beef | KC7 Foundation | Jun 2026 | 67263 | [Verify](https://kc7cyber.com/certificate/earned/67263) |
+| AI Testing | IT Talent Hub | Nov 2024 | None on file | No credential link |
 
 ## Projects
 
