@@ -37,7 +37,7 @@ Newest first:
 
 - **Mercor** — Generalist Expert (Contractor), remote, Aug–Oct 2026. AI-related project work.
 - **Rynex Security** — Penetration Testing / Red Team Intern, Jul–Aug 2026. Three authorised engagements: a public-facing website, a Metasploitable target, and an OS dump supplied by Rynex.
-- **Bugcrowd** — Security Researcher (handle `pratham4501`). Settle vulnerability disclosure programme: invoice amount tampering (triaged P4) and account enumeration (triaged).
+- **Bugcrowd** — Security Researcher (handle `pratham4501`). Responsibly reported two valid security issues through Settle's vulnerability disclosure programme on Bugcrowd; both triaged and accepted as valid, with a written acknowledgement from Settle.
 - **Yatri India** — General Manager, Wembley, Dec 2024–Sep 2026 (previously Assistant Manager, Sep 2022–Nov 2024).
 
 ## Education
