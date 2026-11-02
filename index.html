@@ -431,6 +431,12 @@
     transition:border-color 0.2s ease, color 0.2s ease;
   }
   .tag:hover{ border-color:var(--teal); color:var(--teal); }
+  .t-shot{ margin:18px 0 0; max-width:280px; }
+  .t-shot img{
+    display:block; width:100%; height:auto;
+    border:1px solid var(--line); border-radius:6px; box-shadow:0 16px 28px -18px rgba(0,0,0,0.75);
+  }
+  @media (max-width:780px){ .t-shot{ max-width:none; } }
   .metric-highlight{
     display:inline-block; font-family:var(--mono); color:var(--ink); background:var(--amber);
     padding:2px 8px; border-radius:3px; font-weight:600; font-size:0.9em;
@@ -956,6 +962,9 @@
           <span class="tag">Bugcrowd</span>
           <span class="tag">Web Testing</span>
         </div>
+        <figure class="t-shot">
+          <img src="images/settle-acknowledgement.jpg" width="640" height="681" loading="lazy" alt="Acknowledgement from Settle on Bugcrowd confirming two valid security reports">
+        </figure>
       </div>
       <div class="t-item">
         <div class="t-date">DEC 2024 — SEP 2026</div>
